@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vulnerability Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-blue-600 text-white py-4 shadow-md">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+          <h1 class="text-2xl font-bold">Vulnerability Tracker</h1>
+        </div>
+        <nav>
+          <ul class="flex space-x-6">
+            <li><a href="#" class="hover:text-gray-300">Dashboard</a></li>
+            <li><a href="#" class="hover:text-gray-300">Trends & Graphs</a></li>
+            <li><a
+                href="https://terrific-column-d17.notion.site/NLP-Project-Group-12-1374fed59a948092aa20fc6053a3567a?pvs=4"
+                class="hover:text-gray-300">Documentation</a></li>
+            <li><a href="#" class="hover:text-gray-300">Contact</a></li>
+          </ul>
+        </nav>
+        <button id="theme-toggle" class="text-white hover:text-gray-300">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-grow container mx-auto my-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card bg-white rounded-lg shadow-lg">
+          <div class="card-header bg-blue-600 text-white py-4 px-6 rounded-t-lg">
+            <h2 class="text-xl font-bold">Key Stats</h2>
+          </div>
+          <div class="card-body p-6">
+            <div class="flex justify-between items-center mb-4">
+              <p class="text-gray-600 font-medium">Total Vulnerabilities</p>
+              <p id="totalVulnerabilities" class="text-blue-600 font-bold text-2xl">0</p>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+              <p class="text-gray-600 font-medium">High Severity</p>
+              <div id="highSeverity" class="text-red-600 font-bold text-2xl">0</div>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+              <p class="text-gray-600 font-medium">Medium Severity</p>
+              <div id="mediumSeverity" class="text-yellow-600 font-bold text-2xl">0</div>
+            </div>
+            <div class="flex justify-between items-center">
+              <p class="text-gray-600 font-medium">Low Severity</p>
+              <div id="lowSeverity" class="text-green-600 font-bold text-2xl">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg relative">
+          <div class="card-header bg-blue-600 text-white py-4 px-6 rounded-t-lg">
+            <h2 class="text-xl font-bold">Quick Search</h2>
+          </div>
+          <div class="card-body p-6">
+            <input type="text" id="searchInput"
+              class="w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Search vulnerabilities" oninput="showSuggestions(this.value)">
+            <div id="suggestions"
+              class="absolute bg-white border border-gray-300 rounded-md mt-1 w-full hidden max-h-48 overflow-y-auto z-10 shadow-lg">
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card bg-white rounded-lg shadow-lg">
+          <div class="card-header bg-blue-600 text-white py-4 px-6 rounded-t-lg">
+            <h2 class="text-xl font-bold">Trending Weaknesses</h2>
+          </div>
+          <div class="card-body p-6">
+            <ul id="weaknessList" class="space-y-4">
+              <!-- Dynamically filled list will appear here -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-8">
+        <div class="card bg-white rounded-lg shadow-lg">
+          <div class="card-header bg-blue-600 text-white py-4 px-6 rounded-t-lg">
+            <h2 class="text-xl font-bold">Vulnerability Dashboard</h2>
+          </div>
+          <div class="card-body p-6">
+            <div class="mb-6">
+              <h3 class="text-lg font-medium mb-2">Filters</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Software Filter -->
+                <div>
+                  <label for="software" class="block mb-1 font-medium text-gray-600">Software</label>
+                  <div class="relative">
+                    <input type="text" placeholder="Search software..."
+                      class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      oninput="filterDropdown('software', this.value)">
+                    <select id="software"
+                      class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                      <option value="">All Software</option>
+                      <option value="windows">Windows</option>
+                      <option value="linux">Linux</option>
+                      <option value="apache">Apache</option>
+                      <option value="mysql">MySQL</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Year Filter -->
+                <div>
+                  <label for="year" class="block mb-1 font-medium text-gray-600">Year</label>
+                  <div class="relative">
+                    <input type="text" placeholder="Search year..."
+                      class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      oninput="filterDropdown('year', this.value)">
+                    <select id="year"
+                      class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                      <!-- Options will be dynamically inserted here -->
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Severity Filter -->
+                <div>
+                  <label for="severity" class="block mb-1 font-medium text-gray-600">Severity</label>
+                  <div class="relative">
+                    <input type="text" placeholder="Search severity..."
+                      class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      oninput="filterDropdown('severity', this.value)">
+                    <select id="severity"
+                      class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                      <option value="">All Severities</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- CWE Filter -->
+                <div>
+                  <label for="cwe" class="block mb-1 font-medium text-gray-600">Weakness Type (CWE)</label>
+                  <!-- CWE Filter -->
+                  <div>
+                    <!-- <label for="cwe" class="block mb-1 font-medium text-gray-600">CWE Type</label> -->
+                    <div class="relative">
+                      <input type="text" placeholder="Search CWE..."
+                        class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        oninput="filterDropdown('cwe', this.value)">
+                      <select id="cwe"
+                        class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                        <!-- Options will be dynamically inserted here -->
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Impact Type Filter -->
+                <div>
+                  <label for="impactType" class="block mb-1 font-medium text-gray-600">Impact Type</label>
+                  <div class="relative">
+                    <input type="text" placeholder="Search Impact Type..."
+                      class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      oninput="filterDropdown('impactType', this.value)">
+                    <select id="impactType"
+                      class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                      <option value="">All Impact Types</option>
+                      <option value="data-loss">Data Loss</option>
+                      <option value="integrity-compromise">Integrity Compromise</option>
+                      <option value="confidentiality-breach">Confidentiality Breach</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Access Type Filter -->
+                <div>
+                  <label for="accessType" class="block mb-1 font-medium text-gray-600">Access Type</label>
+                  <div class="relative">
+                    <input type="text" placeholder="Search Access Type..."
+                      class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      oninput="filterDropdown('accessType', this.value)">
+                    <select id="accessType"
+                      class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                      <option value="">All Access Types</option>
+                      <option value="remote">Remote</option>
+                      <option value="local">Local</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- CVE Filter -->
+                <div>
+                  <label for="cve" class="block mb-1 font-medium text-gray-600">CVE</label>
+                  <!-- CVE Filter -->
+                  <div class="relative">
+                    <input type="text" placeholder="Search CVE..."
+                      class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      oninput="filterDropdown('cve', this.value)">
+                    <select id="cve"
+                      class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                      <!-- Options will be dynamically inserted here -->
+                    </select>
+                  </div>
+
+                </div>
+
+                <!-- Complexity Filter -->
+                <div>
+                  <label for="complexity" class="block mb-1 font-medium text-gray-600">Complexity</label>
+                  <div class="relative">
+                    <input type="text" placeholder="Search Complexity..."
+                      class="drop-down w-full border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      oninput="filterDropdown('complexity', this.value)">
+                    <select id="complexity"
+                      class="absolute top-0 left-0 w-full border-gray-300 rounded-md py-3 px-4 mt-10 hidden" size="5">
+                      <option value="">All Complexities</option>
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card bg-white rounded-lg shadow-lg relative">
+        <div class="card-header bg-blue-600 text-white py-4 px-6 rounded-t-lg">
+          <h2 class="text-xl font-bold">CVE Information</h2>
+        </div>
+        <div class="card-body p-6">
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-300">
+              <thead>
+                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th class="py-3 px-6 text-left">CVE ID</th>
+                  <th class="py-3 px-6 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody id="cveTableBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+  </div>
+
+  </main>
+
+  <footer class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2024 Vulnerability Tracker. All rights reserved.</p>
+    </div>
+  </footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function filterDropdown(selectId, query) {
+      const select = document.getElementById(selectId);
+      const options = select.options;
+
+      if (query) {
+        select.classList.remove("hidden");
+      } else {
+        select.classList.add("hidden");
+      }
+
+      const lowercaseQuery = query.toLowerCase();
+
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+        const optionText = option.textContent.toLowerCase();
+
+        if (optionText.includes(lowercaseQuery)) {
+          option.style.display = "";
+        } else {
+          option.style.display = "none";
+        }
+      }
+    }
+
+    // Set up event listeners for dropdown selection
+    function setupDropdownListeners() {
+      const dropdowns = ['software', 'year', 'severity', 'cwe', 'impactType', 'accessType', 'cve', 'complexity'];
+      dropdowns.forEach(dropdown => {
+        const select = document.getElementById(dropdown);
+        const input = document.querySelector(`input[oninput="filterDropdown('${dropdown}', this.value)"]`);
+
+        // When an option is selected, update the input field and hide the dropdown
+        select.addEventListener('change', function () {
+          input.value = select.options[select.selectedIndex].textContent;
+          select.classList.add("hidden");
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupDropdownListeners);
+
+    document.addEventListener('click', function (event) {
+      const dropdowns = ['software', 'year', 'severity', 'cwe', 'impactType', 'accessType', 'cve', 'complexity'];
+      dropdowns.forEach(dropdown => {
+        const select = document.getElementById(dropdown);
+        const input = document.querySelector(`input[oninput="filterDropdown('${dropdown}', this.value)"]`);
+
+        if (!select.contains(event.target) && !input.contains(event.target)) {
+          select.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+  <script>
+
+
+
+    function filterDropdown(selectId, query) {
+      const select = document.getElementById(selectId);
+      const options = select.options;
+
+      if (query) {
+        select.classList.add("visible");
+      } else {
+        select.classList.remove("visible");
+      }
+
+      const lowercaseQuery = query.toLowerCase();
+
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+        const optionText = option.textContent.toLowerCase();
+
+        if (optionText.includes(lowercaseQuery)) {
+          option.style.display = "";
+        } else {
+          option.style.display = "none";
+        }
+      }
+    }
+
+    // Set up event listeners for dropdown selection
+    function setupDropdownListeners() {
+      const dropdowns = ['software', 'year', 'severity', 'cwe', 'impactType', 'accessType', 'cve', 'complexity'];
+      dropdowns.forEach(dropdown => {
+        const select = document.getElementById(dropdown);
+        const input = document.querySelector(`input[oninput="filterDropdown('${dropdown}', this.value)"]`);
+
+        // When an option is selected, update the input field and hide the dropdown
+        select.addEventListener('change', function () {
+          input.value = select.options[select.selectedIndex].textContent;
+          select.classList.remove("visible");
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupDropdownListeners);
+
+    document.addEventListener('click', function (event) {
+      const dropdowns = ['software', 'year', 'severity', 'cwe', 'impactType', 'accessType', 'cve', 'complexity'];
+      dropdowns.forEach(dropdown => {
+        const select = document.getElementById(dropdown);
+        const input = document.querySelector(`input[oninput="filterDropdown('${dropdown}', this.value)"]`);
+
+        if (!select.contains(event.target) && !input.contains(event.target)) {
+          select.classList.remove("visible");
+        }
+      });
+    });
+  </script>
+  <script>
+
+    let searchKeywords = [];
+
+    function fetchJsonKeys(fileName) {
+      return fetch(fileName)  // Use fetch to read the JSON file
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();  // Parse the JSON data
+        })
+        .catch(error => {
+          console.error('Error fetching the file:', error);
+          return {};  // Return an empty object if there's an error
+        });
+    }
+
+    // Function to fetch JSON keys and populate the dropdown
+    function populateSeverityDropdown() {
+      fetch('classified_vulnerabilities.json')
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          const severitySelect = document.getElementById('severity');
+
+          // Clear existing options except the first one ("All Severities")
+          severitySelect.innerHTML = '<option value="">All Severities</option>';
+
+          // Populate dropdown with JSON keys
+          Object.keys(data).forEach(severity => {
+            const option = document.createElement('option');
+            option.value = severity;
+            option.textContent = severity.charAt(0).toUpperCase() + severity.slice(1); // Capitalize for display
+            severitySelect.appendChild(option);
+          });
+        })
+        .catch(error => console.error('Error fetching or processing JSON:', error));
+    }
+
+    // Fetch JSON keys from the specified file
+    function fetchJsonKeysInput(fileName) {
+      return fetch(fileName)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          searchKeywords = Object.keys(data);  // Store JSON keys in global array
+          console.log("Fetched JSON keys:", searchKeywords);  // Debugging line
+        })
+        .catch(error => {
+          console.error('Error fetching the file:', error);
+        });
+    }
+
+
+    // Function to populate the dropdown with keys from the JSON
+    function populateDropdownWithKeys(data) {
+      const dropdown = document.getElementById('software');  // Get the dropdown element
+      dropdown.innerHTML = '';  // Clear any existing options
+
+      // Add a default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'All Software';
+      dropdown.appendChild(defaultOption);
+
+      // Loop through the keys and add them as options
+      Object.keys(data).forEach(software => {
+        const option = document.createElement('option');
+        option.value = software;  // Set the key as the value
+        option.textContent = software;  // Set the key as the display text
+        dropdown.appendChild(option);  // Add the option to the dropdown
+      });
+
+      dropdown.classList.remove('hidden');  // Show the dropdown after populating
+    }
+
+    // Function to populate the dropdown with keys from the JSON
+    function populateDropdownWithAccessTypes(data) {
+      const dropdown = document.getElementById('accessType');  // Get the dropdown element
+      dropdown.innerHTML = '';  // Clear any existing options
+
+      // Add a default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'All Access Types';
+      dropdown.appendChild(defaultOption);
+
+      // Loop through the keys (access types) and add them as options
+      Object.keys(data).forEach(accessType => {
+        const option = document.createElement('option');
+        option.value = accessType;  // Set the key (access type) as the value
+        option.textContent = accessType;  // Set the key (access type) as the display text
+        dropdown.appendChild(option);  // Add the option to the dropdown
+      });
+
+      dropdown.classList.remove('hidden');  // Show the dropdown after populating
+    }
+
+    function updateWeaknessList(data) {
+      const weaknessList = document.getElementById('weaknessList'); // The UL element to update
+      weaknessList.innerHTML = '';  // Clear existing items
+
+      // Loop through the keys and add them as list items
+      Object.keys(data).forEach(weakness => {
+        const li = document.createElement('li');
+        li.classList.add('flex', 'justify-between', 'items-center');
+
+        const weaknessName = document.createElement('p');
+        weaknessName.classList.add('text-gray-600');
+        weaknessName.textContent = weakness;  // Display only the key
+
+        li.appendChild(weaknessName);  // Append only the key to the list item
+
+        weaknessList.appendChild(li);  // Add the new list item to the list
+      });
+    }
+
+    // Function to fetch JSON data from an external file
+    function fetchVulnerabilityData(fileName) {
+      return fetch(fileName)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();  // Parse the JSON from the response
+        })
+        .catch(error => {
+          console.error('Error fetching the data:', error);
+          return null;  // Return null if there's an error fetching the file
+        });
+    }
+
+    // Function to populate the dropdown with keys from the JSON
+    function populateDropdownWithImpactTypes(data) {
+      const dropdown = document.getElementById('impactType');  // Get the dropdown element
+      dropdown.innerHTML = '';  // Clear any existing options
+
+      // Add a default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'All Impact Types';
+      dropdown.appendChild(defaultOption);
+
+      // Loop through the keys (impact types) and add them as options
+      Object.keys(data).forEach(impactType => {
+        const option = document.createElement('option');
+        option.value = impactType;  // Set the key (impact type) as the value
+        option.textContent = impactType;  // Set the key (impact type) as the display text
+        dropdown.appendChild(option);  // Add the option to the dropdown
+      });
+
+      dropdown.classList.remove('hidden');  // Show the dropdown after populating
+    }
+
+    // Function to update the dashboard with data
+    function updateDashboard(data) {
+      if (!data) return; // If no data is available, do nothing
+
+      // Update Total Vulnerabilities
+      document.getElementById('totalVulnerabilities').textContent = data.Total.toLocaleString();
+
+      // Update High Severity
+      document.getElementById('highSeverity').textContent = data.Critical.toLocaleString();
+
+      // Update Medium Severity
+      document.getElementById('mediumSeverity').textContent = data.Medium.toLocaleString();
+
+      // Update Low Severity (Assuming Low Severity = Not Classified)
+      document.getElementById('lowSeverity').textContent = data['Not Classified'].toLocaleString();
+    }
+
+    // Function to populate the dropdown with keys from the JSON
+    function populateDropdownWithYears(data) {
+      const dropdown = document.getElementById('year');  // Get the dropdown element
+      dropdown.innerHTML = '';  // Clear any existing options
+
+      // Add a default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'All Years';
+      dropdown.appendChild(defaultOption);
+
+      // Loop through the keys (years) and add them as options
+      Object.keys(data).forEach(year => {
+        const option = document.createElement('option');
+        option.value = year;  // Set the key (year) as the value
+        option.textContent = year;  // Set the key (year) as the display text
+        dropdown.appendChild(option);  // Add the option to the dropdown
+      });
+
+      dropdown.classList.remove('hidden');  // Show the dropdown after populating
+    }
+
+    // Function to populate the dropdown with complexity types from JSON
+    function populateDropdownWithComplexities(data) {
+      const dropdown = document.getElementById('complexity');  // Get the dropdown element
+      dropdown.innerHTML = '';  // Clear any existing options
+
+      // Add a default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'All Complexities';
+      dropdown.appendChild(defaultOption);
+
+      // Loop through the keys (complexity types) and add them as options
+      Object.keys(data).forEach(complexity => {
+        const option = document.createElement('option');
+        option.value = complexity;  // Set the key (complexity) as the value
+        option.textContent = complexity;  // Set the key (complexity) as the display text
+        dropdown.appendChild(option);  // Add the option to the dropdown
+      });
+
+      dropdown.classList.remove('hidden');  // Show the dropdown after populating
+    }
+
+    // Function to populate the dropdown with CVE IDs from JSON
+    function populateDropdownWithCVE(data) {
+      const dropdown = document.getElementById('cve');  // Get the dropdown element
+      dropdown.innerHTML = '';  // Clear any existing options
+
+      // Add a default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'All CVEs';
+      dropdown.appendChild(defaultOption);
+
+      // Loop through the keys (CVE IDs) and add them as options
+      Object.keys(data).forEach(cve => {
+        const option = document.createElement('option');
+        option.value = cve;  // Set the key (CVE ID) as the value
+        option.textContent = cve;  // Set the key (CVE ID) as the display text
+        dropdown.appendChild(option);  // Add the option to the dropdown
+      });
+
+      dropdown.classList.remove('hidden');  // Show the dropdown after populating
+    }
+
+    let cveData = {};
+
+// Fetch JSON data on page load
+async function fetchCVEData() {
+  try {
+    const response = await fetch('keywords_to_cve_mapping.json');
+    const data = await response.json();
+    cveData = data;
+    searchKeywords = Object.keys(data);
+  } catch (error) {
+    console.error('Error fetching CVE data:', error);
+  }
+}
+
+// Initialize data fetch
+fetchCVEData();
+
+// Show suggestions based on input
+function showSuggestions(value) {
+  const suggestionsContainer = document.getElementById('suggestions');
+  suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+
+  // Filter keywords
+  const filteredKeywords = searchKeywords.filter(keyword =>
+    keyword.toLowerCase().includes(value.toLowerCase())
+  );
+
+  // Display filtered keywords
+  filteredKeywords.forEach(keyword => {
+    const suggestionItem = document.createElement('div');
+    suggestionItem.classList.add('suggestion-item', 'p-2', 'cursor-pointer', 'hover:bg-gray-100');
+    suggestionItem.textContent = keyword;
+
+    // Update input and table when suggestion is clicked
+    suggestionItem.onclick = () => {
+      document.getElementById('searchInput').value = keyword;
+      suggestionsContainer.innerHTML = '';  // Clear suggestions
+      updateTable(keyword);  // Update table with selected keyword data
+    };
+
+    suggestionsContainer.appendChild(suggestionItem);
+  });
+
+  // Show or hide suggestions container
+  suggestionsContainer.classList.toggle('hidden', filteredKeywords.length === 0);
+}
+
+// Update table based on keyword
+function updateTable(keyword) {
+  const tableBody = document.getElementById('cveTableBody');
+  tableBody.innerHTML = ''; // Clear existing rows
+
+  const items = cveData[keyword] || [];
+  items.forEach(item => {
+    const row = document.createElement('tr');
+    row.classList.add('border-b', 'border-gray-200', 'hover:bg-gray-100');
+
+    // CVE ID cell
+    const cveIdCell = document.createElement('td');
+    cveIdCell.classList.add('py-3', 'px-6', 'text-left');
+    cveIdCell.textContent = item.cve_id;
+    row.appendChild(cveIdCell);
+
+    // Description cell
+    const descCell = document.createElement('td');
+    descCell.classList.add('py-3', 'px-6', 'text-left');
+    descCell.textContent = item.description;
+    row.appendChild(descCell);
+
+    tableBody.appendChild(row);
+  });
+}
+    // On page load, fetch data and update the dashboard
+    window.onload = function () {
+      fetchVulnerabilityData('vulnerability_counts.json')  // Path to the external JSON file
+        .then(data => {
+          updateDashboard(data);
+        });
+      fetchJsonKeys('vulnerabilities_by_weakness_filtered.json')  // Change to your actual JSON file path
+        .then(data => {
+          updateWeaknessList(data);
+        });
+      fetchJsonKeys('software_categorized_vulnerabilities.json')  // Change to your actual JSON file path
+        .then(data => {
+          populateDropdownWithKeys(data);
+        });
+      fetchJsonKeys('vulnerabilities_by_year.json')  // Change to your actual JSON file path
+        .then(data => {
+          populateDropdownWithYears(data);
+        });
+      fetchJsonKeys('vulnerabilities_by_impact.json')  // Change to your actual JSON file path
+        .then(data => {
+          populateDropdownWithImpactTypes(data);
+        });
+      fetchJsonKeys('vulnerabilities_by_access_vector.json')  // Change to your actual JSON file path
+        .then(data => {
+          populateDropdownWithAccessTypes(data);
+        });
+      fetchJsonKeys('vulnerabilities_by_access_complexity.json')  // Change to your actual JSON file path
+        .then(data => {
+          populateDropdownWithComplexities(data);
+        });
+      fetchJsonKeys('vulnerabilities_by_weakness_filtered.json')  // Use the actual path to your JSON file
+        .then(data => {
+          populateDropdownWithCWE(data);
+        });
+      fetchJsonKeys('related_vulnerabilities.json')  // Use the actual path to your JSON file
+        .then(data => {
+          populateDropdownWithCVE(data);
+        });
+      fetchJsonKeysInput('keywords_to_cve_mapping.json');
+      populateSeverityDropdown();
+    };
+  </script>
+</body>
+
+</html>

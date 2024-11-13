@@ -1,0 +1,241 @@
+{
+  "CWE-269": [
+    {
+      "vuln_id": "CVE-1999-0084",
+      "software": [
+        "Sun"
+      ],
+      "description": "Certain NFS servers allow users to use mknod to gain privileges by creating a writable kmem device and setting the UID to 0."
+    }
+  ],
+  "CWE": [
+    {
+      "vuln_id": "CVE-1999-1302",
+      "software": [],
+      "description": "Unspecified vulnerability in pt_chmod in SCO UNIX 4.2 and earlier allows local users to gain root access."
+    },
+    {
+      "vuln_id": "CVE-1999-0070",
+      "software": [
+        "Apache"
+      ],
+      "description": "test-cgi program allows an attacker to list files on the server."
+    },
+    {
+      "vuln_id": "CVE-1999-0228",
+      "software": [
+        "Windows NT"
+      ],
+      "description": "Denial of service in RPCSS.EXE program (RPC Locator) in Windows NT."
+    },
+    {
+      "vuln_id": "CVE-1999-0144",
+      "software": [
+        "Qmail project"
+      ],
+      "description": "Denial of service in Qmail by specifying a large number of recipients with the RCPT command."
+    },
+    {
+      "vuln_id": "CVE-1999-0524",
+      "software": [],
+      "description": "ICMP information such as (1) netmask and (2) timestamp is allowed from arbitrary hosts."
+    },
+    {
+      "vuln_id": "CVE-1999-1412",
+      "software": [
+        "MacOS X",
+        "Apache"
+      ],
+      "description": "A possible interaction between Apple MacOS X release 1.0 and Apache HTTP server allows remote attackers to cause a denial of service (crash) via a flood of HTTP GET requests to CGI programs, which generates a large number of processes."
+    },
+    {
+      "vuln_id": "CVE-1999-0682",
+      "software": [
+        "Microsoft"
+      ],
+      "description": "Microsoft Exchange 5.5 allows a remote attacker to relay email (i.e. spam) using encapsulated SMTP addresses, even if the anti-relaying features are enabled."
+    },
+    {
+      "vuln_id": "CVE-1999-0289",
+      "software": [
+        "Apache"
+      ],
+      "description": "The Apache web server for Win32 may provide access to restricted files when a . (dot) is appended to a requested URL."
+    },
+    {
+      "vuln_id": "CVE-1999-1043",
+      "software": [
+        "Microsoft"
+      ],
+      "description": "Microsoft Exchange Server 5.5 and 5.0 does not properly handle (1) malformed NNTP data, or (2) malformed SMTP data, which allows remote attackers to cause a denial of service (application error)."
+    },
+    {
+      "vuln_id": "CVE-1999-1589",
+      "software": [
+        "AIX 3.2"
+      ],
+      "description": "Unspecified vulnerability in crontab in IBM AIX 3.2 allows local users to gain root privileges via unknown attack vectors."
+    }
+  ],
+  "CWE-125": [
+    {
+      "vuln_id": "CVE-1999-0022",
+      "software": [],
+      "description": "Local user gains root privileges via buffer overflow in rdist, via expstr() function."
+    },
+    {
+      "vuln_id": "CVE-1999-0029",
+      "software": [],
+      "description": "root privileges via buffer overflow in ordist command on SGI IRIX systems."
+    },
+    {
+      "vuln_id": "CVE-1999-0006",
+      "software": [
+        "Qualcomm"
+      ],
+      "description": "Buffer overflow in POP servers based on BSD/Qualcomm's qpopper allows remote attackers to gain root access using a long PASS command."
+    }
+  ],
+  "CWE-200": [
+    {
+      "vuln_id": "CVE-1999-0236",
+      "software": [
+        "Illinois",
+        "Apache"
+      ],
+      "description": "ScriptAlias directory in NCSA and Apache httpd allowed attackers to read CGI programs."
+    },
+    {
+      "vuln_id": "CVE-1999-0059",
+      "software": [],
+      "description": "IRIX fam service allows an attacker to obtain a list of all files on the server."
+    },
+    {
+      "vuln_id": "CVE-1999-0524",
+      "software": [],
+      "description": "ICMP information such as (1) netmask and (2) timestamp is allowed from arbitrary hosts."
+    },
+    {
+      "vuln_id": "CVE-1999-1136",
+      "software": [],
+      "description": "Vulnerability in Predictive on HP-UX 11.0 and earlier, and MPE/iX 5.5 and earlier, allows attackers to compromise data transfer for Predictive messages (using e-mail or modem) between customer and Response Center Predictive systems."
+    },
+    {
+      "vuln_id": "CVE-1999-0453",
+      "software": [],
+      "description": "An attacker can identify a CISCO device by sending a SYN packet to port 1999, which is for the Cisco Discovery Protocol (CDP)."
+    },
+    {
+      "vuln_id": "CVE-1999-0348",
+      "software": [
+        "Microsoft"
+      ],
+      "description": "IIS ASP caching problem releases sensitive information when two virtual servers share the same physical directory."
+    },
+    {
+      "vuln_id": "CVE-1999-0372",
+      "software": [
+        "Microsoft"
+      ],
+      "description": "The installer for BackOffice Server includes account names and passwords in a setup file (reboot.ini) which is not deleted."
+    },
+    {
+      "vuln_id": "CVE-1999-0605",
+      "software": [
+        "Austin contract computing"
+      ],
+      "description": "An incorrect configuration of the Order Form 1.0 shopping cart  CGI program could disclose private information."
+    },
+    {
+      "vuln_id": "CVE-1999-0606",
+      "software": [
+        "Seaside enterprises"
+      ],
+      "description": "An incorrect configuration of the EZMall 2000 shopping cart  CGI program \"mall2000.cgi\" could disclose private information."
+    },
+    {
+      "vuln_id": "CVE-1999-0877",
+      "software": [
+        "ExecCommand",
+        "Microsoft",
+        "Explorer 5"
+      ],
+      "description": "Internet Explorer 5 allows remote attackers to read files via an ExecCommand method called on an IFRAME."
+    },
+    {
+      "vuln_id": "CVE-1999-1462",
+      "software": [
+        "Bb4"
+      ],
+      "description": "Vulnerability in bb-hist.sh CGI History module in Big Brother 1.09b and 1.09c allows remote attackers to read portions of arbitrary files."
+    },
+    {
+      "vuln_id": "CVE-2000-0132",
+      "software": [
+        "Microsoft"
+      ],
+      "description": "Microsoft Java Virtual Machine allows remote attackers to read files via the getSystemResourceAsStream function."
+    }
+  ],
+  "CWE-327": [
+    {
+      "vuln_id": "CVE-1999-0007",
+      "software": [
+        "Microsoft",
+        "Netscape",
+        "Hp",
+        "C2net",
+        "Ssleay"
+      ],
+      "description": "Information from SSL-encrypted sessions via PKCS #1."
+    }
+  ],
+  "CWE-476": [
+    {
+      "vuln_id": "CVE-1999-0052",
+      "software": [],
+      "description": "IP fragmentation denial of service in FreeBSD allows a remote attacker to cause a crash."
+    }
+  ],
+  "CWE-287": [
+    {
+      "vuln_id": "CVE-1999-0366",
+      "software": [
+        "Windows NT 4.0"
+      ],
+      "description": "In some cases, Service Pack 4 for Windows NT 4.0 can allow access to network shares using a blank password, through a problem with a null NT hash value."
+    },
+    {
+      "vuln_id": "CVE-1999-0680",
+      "software": [
+        "Microsoft"
+      ],
+      "description": "Windows NT Terminal Server performs extra work when a client opens a new connection but before it is authenticated, allowing for a denial of service."
+    },
+    {
+      "vuln_id": "CVE-1999-0987",
+      "software": [
+        "Windows NT"
+      ],
+      "description": "Windows NT does not properly download a system policy if the domain user logs into the domain with a space at the end of the domain name."
+    }
+  ],
+  "CWE-384": [
+    {
+      "vuln_id": "CVE-1999-0428",
+      "software": [
+        "Openssl"
+      ],
+      "description": "OpenSSL and SSLeay allow remote attackers to reuse SSL sessions and bypass access controls."
+    }
+  ],
+  "CWE-772": [
+    {
+      "vuln_id": "CVE-1999-1127",
+      "software": [
+        "Windows NT 4.0"
+      ],
+      "description": "Windows NT 4.0 does not properly shut down invalid named pipe RPC connections, which allows remote attackers to cause a denial of service (resource exhaustion) via a series of connections containing malformed data, aka the \"Named Pipes Over RPC\" vulnerability."
+    }
+  ]
+}

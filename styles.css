@@ -1,0 +1,164 @@
+/* Global Styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* overflow: hidden; */
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+table th, table td {
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Severity Badge Styling */
+.severity-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Severity Colors */
+.text-red-600 {
+  color: #e11d48;
+}
+
+.text-orange-500 {
+  color: #f97316;
+}
+
+.text-green-500 {
+  color: #10b981;
+}
+
+.bg-red-500 {
+  background-color: #e11d48;
+}
+
+.bg-orange-500 {
+  background-color: #f97316;
+}
+
+.bg-green-500 {
+  background-color: #10b981;
+}
+
+/* Dark Mode Styles */
+body[data-theme="dark"] {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .card {
+  background-color: #333333;
+}
+
+body[data-theme="dark"] .card-header {
+  background-color: #0069d9;
+}
+
+body[data-theme="dark"] table {
+  border-color: #444;
+}
+
+body[data-theme="dark"] table th, body[data-theme="dark"] table td {
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+  /* Styling for input fields */
+  input[type="text"].drop-down {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+  }
+  
+  input[type="text"].drop-down:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  }
+
+  /* Styling for dropdown (select) */
+  select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+      background-color: #fff;
+      color: #333;
+      display: none; /* Hide dropdown initially */
+      position: absolute;
+      z-index: 1;
+      min-height: fit-content; /* Limit height */
+      overflow-y: auto;
+  }
+
+  /* Display dropdown when input is active */
+  select.visible {
+      display: block;
+  }
+
+  /* Option styling */
+  select option {
+      padding: 10px;
+      cursor: pointer;
+  }
+
+  /* Hover effect for options */
+  select option:hover {
+      background-color: #f0f0f0;
+  }
+
+  /* Dark mode styles */
+body[data-theme="dark"] p,
+body[data-theme="dark"] label {
+  color: #fff; /* White text color for dark mode */
+}
+
+/* Dark mode styles */
+body[data-theme="dark"] input {
+color: whitesmoke; /* Black color for user-typed data in dark mode */
+background-color: #333; 
+}
+
+/* Additional styling for improved visibility in dark mode */
+body[data-theme="dark"] input::placeholder {
+color: #888; /* Placeholder color in dark mode */
+}
+/* Dark mode styles */
+body[data-theme="dark"] select {
+color: #fff; /* White text color in dark mode */
+background-color: #444; /* Dark background for dropdown */
+border: 1px solid #555; /* Subtle, darker border for contrast */
+}
+
+/* Adjust placeholder color */
+body[data-theme="dark"] select::placeholder {
+color: #bbb; /* Placeholder text color */
+}
+
+body[data-theme="dark"] select option:hover {
+background-color: #555;
+}
