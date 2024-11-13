@@ -48,7 +48,7 @@ To get started with this project, follow these steps:
 
 Clone the project repository to your local environment.
 ```bash
-git clone <repository-link>
+git clone https://github.com/gshraddha17/NVD_CVE_Project.git
 cd <repository-folder>
 ```
 
@@ -63,20 +63,63 @@ All required dependencies are installed automatically using `pip` within the Col
 
 The Colab file will generate JSON files with the processed NVD data. Download these files and store them in the designated folder on your local environment.
 
-> **Note:** The JSON files are only needed when working with a new API data set. Otherwise, you can simply access the website from the main link without regenerating the data.
+> **Note:** The JSON files are only needed when working with a new API data set. Otherwise, you can simply access the website from the main link without regenerating the data: [Dashboard](https://gshraddha17.github.io/NVD_CVE_Project/)
 
 ### Step 4: Access the Website
 
 Once the JSON files are available in the designated directory, the HTML, CSS, and JavaScript code will automatically fetch and display the data. Open the main link to access the vulnerability dashboard.
 
 ---
+## Tools and Features Overview
 
-## Features
+1. **Count of Critical Levels**:  
+   This tool extracts and displays the count of vulnerabilities categorized by their critical levels (e.g., High, Medium, Low) based on data fetched via the API. It helps in quickly assessing the severity distribution across the dataset.
 
-1. **Categorized Vulnerability Insights**: View vulnerabilities organized by affected software, severity, date, and type.
-2. **Filtering and Search**: Use advanced search options to find specific vulnerabilities based on custom criteria.
-3. **Severity-Based Ranking**: Easily prioritize vulnerabilities based on severity and potential impact.
-4. **Real-Time Notifications**: Get alerts for high-severity vulnerabilities via email.
-5. **Visual Representation**: Graphs and charts present data insights clearly for faster decision-making.
+2. **Trending Weaknesses**:  
+   A set of trending weakness types is displayed, showing which weaknesses are frequently occurring in recent vulnerabilities. This helps analysts stay updated on the most common and pressing issues in the cybersecurity landscape.
+
+3. **Quick Search**:  
+   The Quick Search feature allows users to search for vulnerabilities using any keyword. It works not only with keywords but also integrates with the dropdown filters, enabling seamless and customizable searches.
+
+4. **Software-Specific Vulnerabilities**:  
+   - **Search by Software**: Users can select or type the name of a software (e.g., Microsoft Windows, Apache) and view all related vulnerabilities (CVEs and their descriptions) associated with that software.
+
+5. **Weakness Type**:  
+   - **Search by Weakness Type**: Users can filter vulnerabilities based on weakness types (e.g., buffer overflow, SQL injection) to narrow down the results.
+
+6. **Access Complexity**:  
+   - **Filter by Access Complexity**: This dropdown allows users to view vulnerabilities categorized by their access complexity (e.g., low, medium, high), helping prioritize based on exploitability.
+
+7. **Access Vector**:  
+   - **Filter by Access Vector**: This option filters vulnerabilities based on how they can be exploited (e.g., network, local, adjacent network).
+
+8. **Critical Level**:  
+   - **Filter by Critical Level**: Users can select the severity level of vulnerabilities they want to focus on, such as "Critical," "High," or "Medium."
+
+9. **Year**:  
+   - **Search by Year**: Users can filter vulnerabilities based on the year of disclosure, making it easier to track recent or historical issues.
+
+10. **Impact Type**:  
+   - **Filter by Impact Type**: This filter allows users to search vulnerabilities based on their impact (e.g., confidentiality, integrity, availability), offering a clearer view of the most relevant threats.
+
+11. **Find Similar Vulnerabilities by CVE ID**:  
+   - **Similar Vulnerability Search**: Users can type in a CVE ID and find vulnerabilities that are similar to it, facilitating a deeper investigation of related threats.
+
+12. **Documentation**:  
+   - **Access Documentation**: Users can view comprehensive documentation for the project by clicking on the "Documentation" section, providing details on the project's setup, usage, and features.
 
 ---
+
+## Screenshots
+
+### Dashboard Overview
+![Dashboard Overview](images/dashboard-overview.png)
+
+### Filtering Features
+![Filtering Features](images/filtering-features.png)
+
+### Table
+![Severity-Based Ranking](images/table.png)
+
+
+
