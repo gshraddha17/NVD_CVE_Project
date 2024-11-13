@@ -113,13 +113,17 @@ Once the JSON files are available in the designated directory, the HTML, CSS, an
 ## Screenshots
 
 ### Dashboard Overview
-![Dashboard Overview](images/dashboard-overview.png)
+![Dashboard Overview](Dashboard_3.jpeg)
+![Dashboard Overview](Dashboard_1.jpeg)
 
 ### Filtering Features
-![Filtering Features](images/filtering-features.png)
+![Filtering Features](Dashboard_2.jpeg)
 
 ### Table
-![Severity-Based Ranking](images/table.png)
+![Severity-Based Ranking](Table_4.jpeg)
+
+### Documentation
+![Documentation](Documentation.jpeg)
 
 
 
